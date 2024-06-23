@@ -19,10 +19,8 @@ def read_root():
     return {"message": "Welcome to the Embrapa viticulture API"}
 
 def fetch_and_process_csv(url: str):
-    response = requests.get(url)
-    response.raise_for_status()  # Levanta um erro se a requisição falhar
-    data = pd.read_csv(io.StringIO(response.text), sep=';', encoding='utf-8')
-    data = data.replace([pd.NA, pd.NaT, float('inf'), float('-inf')], None) # Preencher valores NaN e infinitos com None
+    data = pd.read_csv(url, sep=';', encoding='utf-8')
+    data.fillna(0, inplace=True)
     return data.to_dict(orient='records')
 
 @app.get("/producao")
