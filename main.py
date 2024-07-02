@@ -3,8 +3,6 @@
 
 from fastapi import FastAPI
 import pandas as pd
-import requests
-import io
 
 app = FastAPI()
 
